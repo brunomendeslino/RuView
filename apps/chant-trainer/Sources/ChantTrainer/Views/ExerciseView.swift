@@ -132,7 +132,9 @@ struct ExerciseView: View {
         }
         .onAppear { startCountdown() }
         .onDisappear { cleanUp() }
-        .navigationBarHidden(true)
+        #if os(iOS)
+        .toolbar(.hidden, for: .navigationBar)
+        #endif
         .fullScreenCover(isPresented: Binding(
             get: { if case .finished = phase { return true } else { return false } },
             set: { _ in dismiss() }

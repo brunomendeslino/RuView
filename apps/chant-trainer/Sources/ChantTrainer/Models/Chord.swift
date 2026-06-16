@@ -59,8 +59,7 @@ struct Chord: Identifiable, Codable, Hashable {
     }
 
     var displayName: String {
-        let suffix = type.shortName.isEmpty ? type.displayName : type.shortName
-        return "\(root.name.displayName) \(type.displayName)"
+        "\(root.name.displayName) \(type.displayName)"
     }
 
     var shortDisplayName: String {

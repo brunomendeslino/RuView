@@ -25,6 +25,7 @@ struct ResultsView: View {
     }
 
     var body: some View {
+        NavigationStack {
         ZStack {
             LinearGradient(
                 colors: [Color(white: 0.05), Color(white: 0.12)],
@@ -168,11 +169,15 @@ struct ResultsView: View {
                 }
             }
         }
-        .navigationBarHidden(true)
+        #if os(iOS)
+        .toolbar(.hidden, for: .navigationBar)
+        #endif
+        } // NavigationStack
     }
 
     private func animateStars() {
-        for i in 1...max(1, stars) {
+        guard stars > 0 else { return }
+        for i in 1...stars {
             DispatchQueue.main.asyncAfter(deadline: .now() + Double(i - 1) * 0.35) {
                 visibleStars = i
             }
