@@ -20,8 +20,7 @@ struct HomeView: View {
             ZStack {
                 LinearGradient(
                     colors: [Color(white: 0.05), Color(white: 0.12)],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
+                    startPoint: .topLeading, endPoint: .bottomTrailing
                 )
                 .ignoresSafeArea()
 
@@ -48,18 +47,14 @@ struct HomeView: View {
                     .scaleEffect(1.0 + 0.04 * abs(sin(t * 2)))
             }
             VStack(alignment: .leading, spacing: 2) {
-                Text("\(progress.streakDays) Day Streak")
-                    .font(.title2.bold())
+                Text("\(progress.streakDays) Day Streak").font(.title2.bold())
                 Text(progress.streakDays == 0 ? "Start practicing today!" :
                      progress.streakDays == 1 ? "Great start!" : "Keep it up!")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .font(.caption).foregroundStyle(.secondary)
             }
             Spacer()
-            Image(systemName: "star.fill")
-                .foregroundStyle(.yellow)
-            Text("Lv \(progress.currentLevel)")
-                .font(.headline.bold())
+            Image(systemName: "star.fill").foregroundStyle(.yellow)
+            Text("Lv \(progress.currentLevel)").font(.headline.bold())
         }
         .padding(CT.cardPadding)
         .glassSurface()
@@ -68,13 +63,10 @@ struct HomeView: View {
     private var xpBar: some View {
         VStack(spacing: CT.smallSpacing) {
             HStack {
-                Text("\(progress.levelTitle)")
-                    .font(.caption.bold())
-                    .foregroundStyle(.secondary)
+                Text(progress.levelTitle).font(.caption.bold()).foregroundStyle(.secondary)
                 Spacer()
                 Text("\(progress.xpToNextLevel) XP to Level \(progress.currentLevel + 1)")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .font(.caption).foregroundStyle(.secondary)
             }
             GeometryReader { geo in
                 ZStack(alignment: .leading) {
@@ -101,31 +93,17 @@ struct HomeView: View {
 
                 VStack(alignment: .leading, spacing: CT.smallSpacing) {
                     HStack {
-                        Circle()
-                            .fill(difficulty.color)
-                            .frame(width: 8, height: 8)
-                        Text(difficulty.displayName)
-                            .font(.subheadline.bold())
-                            .foregroundStyle(difficulty.color)
+                        Circle().fill(difficulty.color).frame(width: 8, height: 8)
+                        Text(difficulty.displayName).font(.subheadline.bold()).foregroundStyle(difficulty.color)
                     }
-
                     LazyVGrid(columns: gridColumns, spacing: CT.smallSpacing) {
                         ForEach(exercises) { exercise in
                             let isLocked = !unlocked.contains(where: { $0.id == exercise.id })
                             let stars = progress.starRatings[exercise.id]
-
                             NavigationLink {
-                                ExerciseView(
-                                    exercise: exercise,
-                                    progress: progress,
-                                    pitchDetector: pitchDetector
-                                )
+                                ExerciseView(exercise: exercise, progress: progress, pitchDetector: pitchDetector)
                             } label: {
-                                ExerciseCardView(
-                                    exercise: exercise,
-                                    stars: stars,
-                                    isLocked: isLocked
-                                )
+                                ExerciseCardView(exercise: exercise, stars: stars, isLocked: isLocked)
                             }
                             .disabled(isLocked)
                         }
@@ -144,9 +122,7 @@ struct ExerciseCardView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: CT.smallSpacing) {
             HStack {
-                modeIcon
-                    .font(.caption)
-                    .foregroundStyle(exercise.difficulty.color)
+                modeIcon.font(.caption).foregroundStyle(exercise.difficulty.color)
                 Spacer()
                 if let s = stars {
                     HStack(spacing: 2) {
@@ -158,24 +134,12 @@ struct ExerciseCardView: View {
                     }
                 }
             }
-
-            Text(exercise.title)
-                .font(.caption.bold())
-                .foregroundStyle(.primary)
-                .lineLimit(1)
-
-            Text(exercise.subtitle)
-                .font(.caption2)
-                .foregroundStyle(.secondary)
-                .lineLimit(2)
-
-            // Difficulty pips
+            Text(exercise.title).font(.caption.bold()).foregroundStyle(.primary).lineLimit(1)
+            Text(exercise.subtitle).font(.caption2).foregroundStyle(.secondary).lineLimit(2)
             HStack(spacing: 3) {
                 ForEach(1...5, id: \.self) { i in
                     Circle()
-                        .fill(i <= exercise.difficulty.rawValue
-                              ? exercise.difficulty.color
-                              : Color.primary.opacity(0.2))
+                        .fill(i <= exercise.difficulty.rawValue ? exercise.difficulty.color : Color.primary.opacity(0.2))
                         .frame(width: 5, height: 5)
                 }
             }
@@ -189,15 +153,11 @@ struct ExerciseCardView: View {
     @ViewBuilder
     private var lockedOverlay: some View {
         if isLocked {
-            Rectangle()
-                .fill(Color.black.opacity(0.5))
+            Rectangle().fill(Color.black.opacity(0.5))
                 .overlay {
                     VStack(spacing: 4) {
-                        Image(systemName: "lock.fill")
-                            .foregroundStyle(.white)
-                        Text("\(exercise.unlockXP) XP")
-                            .font(.caption2)
-                            .foregroundStyle(.white.opacity(0.8))
+                        Image(systemName: "lock.fill").foregroundStyle(.white)
+                        Text("\(exercise.unlockXP) XP").font(.caption2).foregroundStyle(.white.opacity(0.8))
                     }
                 }
         }
