@@ -87,7 +87,6 @@ struct MusicalNote: Hashable, Codable, Identifiable {
         return (note, result.cents)
     }
 
-    // Common reference notes
     static let A2 = MusicalNote(name: .A, octave: 2)
     static let C3 = MusicalNote(name: .C, octave: 3)
     static let D3 = MusicalNote(name: .D, octave: 3)
