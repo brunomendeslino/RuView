@@ -8,7 +8,6 @@ struct ChordDeconstructionView: View {
 
     var body: some View {
         VStack(spacing: CT.largeSpacing) {
-            // Header
             VStack(spacing: CT.smallSpacing) {
                 Text(chord.displayName)
                     .font(.largeTitle).bold()
@@ -26,7 +25,6 @@ struct ChordDeconstructionView: View {
                     .overlay(Rectangle().stroke(Color.primary.opacity(0.2), lineWidth: 1))
             }
 
-            // Individual note pills
             HStack(spacing: CT.spacing) {
                 ForEach(Array(chord.notes.enumerated()), id: \.offset) { index, note in
                     NotePillView(
@@ -41,7 +39,6 @@ struct ChordDeconstructionView: View {
 
             Divider().background(Color.primary.opacity(0.1))
 
-            // Playback buttons
             VStack(spacing: CT.smallSpacing) {
                 Button {
                     Task { await synth.playChord(chord, duration: 2.0) }

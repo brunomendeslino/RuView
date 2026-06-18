@@ -15,8 +15,8 @@ final class AudioSynthesizer {
     private var envelopePhase: EnvelopePhase = .off
     private var samplesRemaining: Int = 0
     private let sampleRate: Double = 44100.0
-    private let fadeInSamples  = 441   // 10 ms
-    private let fadeOutSamples = 2205  // 50 ms
+    private let fadeInSamples  = 441
+    private let fadeOutSamples = 2205
 
     private enum EnvelopePhase { case off, attack, sustain, release }
 

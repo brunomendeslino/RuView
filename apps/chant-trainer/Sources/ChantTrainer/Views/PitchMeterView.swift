@@ -12,7 +12,6 @@ struct PitchMeterView: View {
         VStack(spacing: CT.smallSpacing) {
             GeometryReader { geo in
                 ZStack(alignment: .center) {
-                    // Gradient track
                     LinearGradient(
                         stops: [
                             .init(color: .red,    location: 0.00),
@@ -29,12 +28,10 @@ struct PitchMeterView: View {
                     .opacity(isActive ? 1.0 : 0.3)
                     .clipShape(Rectangle())
 
-                    // Center line
                     Rectangle()
                         .fill(Color.white.opacity(0.8))
                         .frame(width: 2)
 
-                    // Needle
                     if isActive {
                         Rectangle()
                             .fill(Color.white)
@@ -48,7 +45,6 @@ struct PitchMeterView: View {
             .frame(height: 48)
             .glassCard()
 
-            // Labels
             HStack {
                 Text("Flat").font(.caption2).foregroundStyle(.secondary)
                 Spacer()
